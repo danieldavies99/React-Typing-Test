@@ -12,6 +12,12 @@
   background-color: #fffff2;
 }
 
+.author {
+  color: grey;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
 .outputText {
   min-width: inherit;
   max-width: inherit;
@@ -70,7 +76,6 @@ a {
   border-radius: 3px;
   padding: 25px;
   border: 2px solid;
-  margin: 20px;
   width: 450px;
   margin: auto;
 }

@@ -124,6 +124,7 @@ class Test extends React.Component {
         <span className="accuracy statistic">
           Accuracy : {this.state.accuracy}%
         </span>
+        <div className="author">Made by Daniel Davies 2020</div>
       </div>
     );
   }
