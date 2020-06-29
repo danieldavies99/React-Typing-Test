@@ -62,6 +62,7 @@ class Test extends React.Component {
       this.started = true;
       this.resetTimer();
     }
+
     let updateDate = new Date();
     let quote = this.getQuote();
     let result = [];
@@ -93,15 +94,21 @@ class Test extends React.Component {
 
     this.setState({ input: result });
 
-    let noWords = Math.ceil(result.length / 5);
-    if (noWords !== this.state.noWords && noWords > 2) {
-      this.setState({ noWords });
-      let timeDifference = updateDate.getTime() - this.timer;
-      let wpm = Math.ceil(100000 * (60 / ((timeDifference * 100) / noWords)));
-      this.setState({ wpm });
+    if (input.length != 0) {
+      let noWords = Math.ceil(result.length / 5);
+      if (noWords !== this.state.noWords && noWords > 2) {
+        this.setState({ noWords });
+        let timeDifference = updateDate.getTime() - this.timer;
+        let wpm = Math.ceil(100000 * (60 / ((timeDifference * 100) / noWords)));
+        this.setState({ wpm });
+      }
+      let accuracy = Math.ceil(100 * (noCorrect / (noCorrect + noIncorrect)));
+      this.setState({ accuracy });
+    } else {
+      console.log("zero");
+      this.setState({ accuracy: 100 });
+      this.setState({ wpm: 0 });
     }
-    let accuracy = Math.ceil(100 * (noCorrect / (noCorrect + noIncorrect)));
-    this.setState({ accuracy });
   };
 
   render(props) {
