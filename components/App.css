@@ -31,16 +31,7 @@
 }
 
 .statistic {
-  position: relative;
-  padding: 20px 0px;
-}
-
-.wpm {
-  left: 0px;
-}
-
-.accuracy {
-  right: 0px;
+  padding: 2px 0px;
 }
 
 .correct {

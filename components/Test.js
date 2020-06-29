@@ -9,7 +9,7 @@ class Test extends React.Component {
     this.breaks = this.getLineBreaks();
   }
 
-  state = { input: "", noWords: null, wpm: 0, accuracy: 100 };
+  state = { input: "", noWords: null, wpm: 0, accuracy: 100, penalty: 0 };
   getQuote = () => {
     return "Mathematics is the study of numbers, quantity, space, pattern, structure, and change. Mathematics is used throughout the world as an essential tool in many fields, including natural science, engineering, medicine, and the social sciences.";
   };
@@ -98,16 +98,21 @@ class Test extends React.Component {
       let noWords = Math.ceil(result.length / 5);
       if (noWords !== this.state.noWords && noWords > 2) {
         this.setState({ noWords });
-        let timeDifference = updateDate.getTime() - this.timer;
-        let wpm = Math.ceil(100000 * (60 / ((timeDifference * 100) / noWords)));
-        this.setState({ wpm });
+        let elapsed = (updateDate.getTime() - this.timer) / 1000;
+
+        //calulate gross wpm
+        let wpm = noWords / (elapsed / 60);
+        let penalty = noIncorrect / (elapsed / 60);
+        wpm = Math.ceil(wpm - penalty);
+        penalty = Math.ceil(penalty);
+        this.setState({ penalty, wpm });
       }
       let accuracy = Math.ceil(100 * (noCorrect / (noCorrect + noIncorrect)));
+
       this.setState({ accuracy });
     } else {
       console.log("zero");
-      this.setState({ accuracy: 100 });
-      this.setState({ wpm: 0 });
+      this.setState({ accuracy: 100, wpm: 0, penalty: 0 });
     }
   };
 
@@ -120,11 +125,10 @@ class Test extends React.Component {
         <span className="outputText">{this.state.input}</span>
         <TypingText className="quote" quote={this.getArrQuote()} />
         <TypingInput onTyped={this.onTyped} quote={this.getQuote()} />
-        <span className="wpm statistic">WPM : {this.state.wpm} </span>
-        <span className="accuracy statistic">
-          Accuracy : {this.state.accuracy}%
-        </span>
-        <div className="author">Made by Daniel Davies 2020</div>
+        <div className="statistic">WPM : {this.state.wpm} </div>
+        <div className="statistic">Accuracy : {this.state.accuracy}%</div>
+        <div className="statistic">Penalty : {this.state.penalty}WPM</div>
+        <div className="author">Made by Daniel Davies - 2020</div>
       </div>
     );
   }
