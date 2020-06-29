@@ -1,0 +1,86 @@
+* {
+  padding: o;
+  margin: 0px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 700;
+}
+
+.container {
+  padding: 20px 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fffff2;
+}
+
+.outputText {
+  min-width: inherit;
+  max-width: inherit;
+  position: absolute;
+  z-index: 0;
+}
+
+.quote {
+  position: absolute;
+  z-index: -1;
+}
+
+.statistic {
+  position: relative;
+  padding: 20px 0px;
+}
+
+.wpm {
+  left: 0px;
+}
+
+.accuracy {
+  right: 0px;
+}
+
+.correct {
+  color: #66999b;
+  background-color: #fffff2;
+}
+
+.incorrect {
+  color: red;
+  background-color: #fffff2;
+}
+
+a {
+  text-decoration: none;
+}
+
+.title {
+  font-size: 35px;
+  border-bottom: solid 2px #3d405b;
+  margin-bottom: 20px;
+  color: #3d405b;
+}
+
+.title:hover {
+  margin-bottom: 20px;
+  color: #303030;
+}
+
+.main {
+  z-index: 30;
+  color: #3d405b;
+  font-size: 20px;
+  border-radius: 3px;
+  padding: 25px;
+  border: 2px solid;
+  margin: 20px;
+  width: 450px;
+  margin: auto;
+}
+
+.input {
+  margin: 20px 0;
+}
+
+.typed {
+  border-radius: 3px;
+  width: 100%;
+  background-color: #fffff2;
+}
