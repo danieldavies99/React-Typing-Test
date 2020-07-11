@@ -4,20 +4,70 @@ import TypingInput from "./TypingInput";
 import TypingText from "./TypingText";
 
 class Test extends React.Component {
-  breaks = [];
-  componentDidMount() {
-    this.breaks = this.getLineBreaks();
+  constructor(props) {
+    super(props);
   }
 
-  state = { input: "", noWords: null, wpm: 0, accuracy: 100, penalty: 0 };
-  getQuote = () => {
-    return "Mathematics is the study of numbers, quantity, space, pattern, structure, and change. Mathematics is used throughout the world as an essential tool in many fields, including natural science, engineering, medicine, and the social sciences.";
+  state = {
+    quoteLink: "/",
+    quoteTitle: "Loading",
+    quoteText: "Please Wait...",
+    input: "",
+    noWords: null,
+    wpm: 0,
+    accuracy: 100,
+    penalty: 0,
+  };
+
+  breaks = [];
+  componentDidMount() {
+    this.generateQuote();
+  }
+
+  generateQuote = () => {
+    let randomNumber = Math.floor(
+      Math.random() * parseInt(this.props.noArticles)
+    );
+
+    let articleObj = {};
+
+    const url = `http://localhost:8080/data/${randomNumber}`;
+
+    const othePram = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "GET",
+    };
+
+    fetch(url, othePram)
+      .then((data) => {
+        return data.text();
+      })
+      .then((res) => {
+        articleObj = JSON.parse(res);
+        this.setState(
+          {
+            quoteText: articleObj.description.toString(),
+            quoteTitle: articleObj.title,
+            quoteLink: articleObj.link,
+          },
+          () => {
+            console.log(this.props.noArticles);
+            this.breaks = this.getLineBreaks();
+          }
+        );
+      });
   };
 
   getArrQuote = () => {
     let result = [];
-    for (let i = 0; i < this.getQuote().length; i++) {
-      result.push(<span id={`Q${i}`}>{this.getQuote()[i]}</span>);
+    for (let i = 0; i < this.state.quoteText.length; i++) {
+      result.push(
+        <span key={`Q${i}`} id={`Q${i}`}>
+          {this.state.quoteText[i]}
+        </span>
+      );
     }
     return result;
   };
@@ -64,29 +114,42 @@ class Test extends React.Component {
     }
 
     let updateDate = new Date();
-    let quote = this.getQuote();
+    let quote = this.state.quoteText;
     let result = [];
 
-    if (input.length > this.getQuote().length) {
-      let textOverflow = input.length - this.getQuote().length;
+    if (input.length > quote.length) {
+      let textOverflow = input.length - quote.length;
       input = input.slice(0, -textOverflow);
     }
 
     for (let i = 0; i < input.length; i++) {
+      //console.log(`Typed : ${input[i]}, expected ${quote[i]}`);
       for (let j = 0; j < this.breaks.length; j++) {
         if (i === this.breaks[j]) {
-          result.push(<br />);
+          result.push(<br key={`BR${i}`} />);
         }
       }
       if (input[i] === quote[i]) {
-        result.push(<span className="correct">{input[i]}</span>);
+        result.push(
+          <span key={`I${i}`} className="resultText correct">
+            {input[i]}
+          </span>
+        );
         noCorrect++;
       } else {
         if (input[i] === " ") {
-          result.push(<span className="incorrect">{"_"}</span>);
+          result.push(
+            <span key={`I${i}`} className="resultText incorrect">
+              {"_"}
+            </span>
+          );
           noIncorrect++;
         } else {
-          result.push(<span className="incorrect">{input[i]}</span>);
+          result.push(
+            <span key={`I${i}`} className="resultText incorrect">
+              {input[i]}
+            </span>
+          );
           noIncorrect++;
         }
       }
@@ -94,7 +157,7 @@ class Test extends React.Component {
 
     this.setState({ input: result });
 
-    if (input.length != 0) {
+    if (input.length !== 0) {
       let noWords = Math.ceil(result.length / 5);
       if (noWords !== this.state.noWords && noWords > 2) {
         this.setState({ noWords });
@@ -119,12 +182,12 @@ class Test extends React.Component {
   render(props) {
     return (
       <div className="main">
-        <a href="https://en.wikipedia.org/wiki/Mathematics">
-          <h1 className="title">Mathematics</h1>
+        <a href={this.state.quoteLink}>
+          <h1 className="title">{this.state.quoteTitle}</h1>
         </a>
         <span className="outputText">{this.state.input}</span>
         <TypingText className="quote" quote={this.getArrQuote()} />
-        <TypingInput onTyped={this.onTyped} quote={this.getQuote()} />
+        <TypingInput onTyped={this.onTyped} quote={this.state.quoteText} />
         <div className="statistic">WPM : {this.state.wpm} </div>
         <div className="statistic">Accuracy : {this.state.accuracy}%</div>
         <div className="statistic">Penalty : {this.state.penalty}WPM</div>

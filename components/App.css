@@ -34,14 +34,15 @@
   padding: 2px 0px;
 }
 
+.resultText {
+  background-color: #fffff2;
+}
 .correct {
   color: #66999b;
-  background-color: #fffff2;
 }
 
 .incorrect {
   color: red;
-  background-color: #fffff2;
 }
 
 a {
