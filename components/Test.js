@@ -6,9 +6,6 @@ import Button from "./Button";
 
 
 class Test extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   state = {
     quoteLink: "/",
