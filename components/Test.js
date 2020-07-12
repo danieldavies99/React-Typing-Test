@@ -2,6 +2,8 @@ import React from "react";
 
 import TypingInput from "./TypingInput";
 import TypingText from "./TypingText";
+import Button from "./Button";
+
 
 class Test extends React.Component {
   constructor(props) {
@@ -174,10 +176,31 @@ class Test extends React.Component {
 
       this.setState({ accuracy });
     } else {
-      console.log("zero");
+      //console.log("zero");
       this.setState({ accuracy: 100, wpm: 0, penalty: 0 });
     }
   };
+
+  onReset = () => {
+    //console.log("Reset Clicked!");
+    this.clearInput();
+    this.refocus();
+  }
+
+  onNewQuote = () => {
+    //console.log("New Quote Clicked!");
+    this.generateQuote(); 
+    this.clearInput();
+    this.refocus();
+  }
+
+  clearInput = () => {
+    this.refs.barInput.clear();
+  }
+
+  refocus = () => {
+    this.refs.barInput.focusBar();
+  }
 
   render(props) {
     return (
@@ -187,7 +210,11 @@ class Test extends React.Component {
         </a>
         <span className="outputText">{this.state.input}</span>
         <TypingText className="quote" quote={this.getArrQuote()} />
-        <TypingInput onTyped={this.onTyped} quote={this.state.quoteText} />
+        <TypingInput ref="barInput" onTyped={this.onTyped} quote={this.state.quoteText} />
+        <div className="buttons">
+          <Button onClicked={this.onNewQuote} buttonText="New Quote"/>
+          <Button onClicked={this.onReset} buttonText="Start Over"/>
+        </div>
         <div className="statistic">WPM : {this.state.wpm} </div>
         <div className="statistic">Accuracy : {this.state.accuracy}%</div>
         <div className="statistic">Penalty : {this.state.penalty}WPM</div>
@@ -196,5 +223,6 @@ class Test extends React.Component {
     );
   }
 }
+
 
 export default Test;

@@ -81,3 +81,35 @@ a {
   width: 100%;
   background-color: #fffff2;
 }
+
+.buttons{
+  margin-bottom: 20px;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.button{
+  cursor: pointer;
+  background-color: #fffff2;
+  color: #303030;
+  border: 2px solid #303030;
+  padding: 8px;
+  border-radius: 2px;
+}
+.button:hover{
+  background-color: #303030;
+  color: #fffff2;
+  border: 2px solid #303030;
+}
+
+
+.siteTitle {
+  padding: 10px 5px;
+  color: white;
+}
+
+.header {
+  width: 100vw;
+  background-color: #303030;
+}

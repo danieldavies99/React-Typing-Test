@@ -4,6 +4,14 @@ import "./App.css";
 class TypingInput extends React.Component {
   state = { typed: "" };
 
+  clear = async () => {
+    //this.setState({typed: ""});
+
+    await this.setState({ typed: "" });
+
+    this.props.onTyped(this.state.typed);
+  }
+
   onFormSubmit = (event) => {
     event.preventDefault();
   };
@@ -21,12 +29,18 @@ class TypingInput extends React.Component {
     };
   }
 
+  focusBar = () => {
+    console.log("Focusing Bar!");
+    this.refs.inputBar.focus();
+  }
+  
   render() {
     return (
       <div className="input">
         <form autoComplete="off" onSubmit={this.onFormSubmit}>
           <div>
             <input
+              ref="inputBar"
               id="inputBar"
               autoFocus
               className="typed"
@@ -39,6 +53,7 @@ class TypingInput extends React.Component {
       </div>
     );
   }
+
 }
 
 export default TypingInput;
