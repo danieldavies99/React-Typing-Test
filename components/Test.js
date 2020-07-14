@@ -4,6 +4,8 @@ import TypingInput from "./TypingInput";
 import TypingText from "./TypingText";
 import Button from "./Button";
 
+import "./App.css";
+
 
 class Test extends React.Component {
 
@@ -30,7 +32,7 @@ class Test extends React.Component {
 
     let articleObj = {};
 
-    const url = `http://localhost:8080/data/${randomNumber}`;
+    const url = `https://stark-reef-57528.herokuapp.com/data/${randomNumber}`;
 
     const othePram = {
       headers: {
@@ -52,7 +54,6 @@ class Test extends React.Component {
             quoteLink: articleObj.link,
           },
           () => {
-            console.log(this.props.noArticles);
             this.breaks = this.getLineBreaks();
           }
         );
@@ -214,7 +215,7 @@ class Test extends React.Component {
         </div>
         <div className="statistic">WPM : {this.state.wpm} </div>
         <div className="statistic">Accuracy : {this.state.accuracy}%</div>
-        <div className="statistic">Penalty : {this.state.penalty}WPM</div>
+        <div className="statistic">Error Penalty : {this.state.penalty}WPM</div>
         <div className="author">Made by Daniel Davies - 2020</div>
       </div>
     );

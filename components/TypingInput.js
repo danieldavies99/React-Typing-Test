@@ -30,7 +30,6 @@ class TypingInput extends React.Component {
   }
 
   focusBar = () => {
-    console.log("Focusing Bar!");
     this.refs.inputBar.focus();
   }
   

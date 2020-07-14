@@ -6,21 +6,26 @@
 }
 
 .container {
+  
+  margin: auto;
   padding: 20px 0px;
-  width: 100vw;
-  height: 100vh;
+  width: 800px;
+  height: 100%;
   background-color: #fffff2;
 }
 
 .author {
+  display: none;
+  position: absolute;
+  bottom: 10px;
   color: grey;
   font-size: 20px;
   margin-top: 10px;
 }
 
 .outputText {
-  min-width: inherit;
-  max-width: inherit;
+  white-space: nowrap;
+  width: inherit;
   position: absolute;
   z-index: 0;
 }
@@ -35,6 +40,7 @@
 }
 
 .resultText {
+  white-space: nowrap;
   background-color: #fffff2;
 }
 .correct {
@@ -50,6 +56,7 @@ a {
 }
 
 .title {
+  margin-top: 50px;
   font-size: 40px;
   border-bottom: solid 2px #3d405b;
   margin-bottom: 20px;
@@ -65,11 +72,10 @@ a {
   z-index: 30;
   color: #3d405b;
   font-size: 28px;
-  border-radius: 3px;
   padding: 25px;
-  border: 2px solid;
   width: 600px;
   margin: auto;
+  margin-bottom: 300px;
 }
 
 .input {
@@ -105,11 +111,20 @@ a {
 
 
 .siteTitle {
-  padding: 10px 5px;
+  padding: 15px 15px;
   color: white;
 }
 
 .header {
-  width: 100vw;
+  z-index: 1;
+  position: fixed;
+  top: 0px;
+  width: 100%;
   background-color: #303030;
+}
+
+.siteContainer {
+  width: 100%;
+  height: 100%;
+  background-color: #E8E8E8;
 }
