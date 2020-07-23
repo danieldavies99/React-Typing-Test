@@ -2,7 +2,7 @@ import React from "react";
 
 class TypingText extends React.Component {
   render(props) {
-    return <div>{this.props.quote}</div>;
+    return <div id="quoteArea">{this.props.quote}</div>;
   }
 }
 

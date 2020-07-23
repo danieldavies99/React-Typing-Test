@@ -1,18 +1,29 @@
 import React from "react";
+import { Route, Switch } from 'react-router-dom';
 
 import "./App.css";
-import Test from "./Test";
+import TestPage from "./Pages/TestPage";
+import ErrorPage from "./Pages/ErrorPage";
+import AboutPage from "./Pages/AboutPage";
+import ContactPage from "./Pages/ContactPage";
+
+import Footer from "./Footer";
+import Header from "./Header";
 
 class App extends React.Component {
   render(props) {
     return (
       <div className="siteContainer">
-        <div className="header">
-          <h1 className="siteTitle">WikiType.io</h1>
+        <Header />
+        <div className="main">
+          <Switch>
+            <Route path="/" component={TestPage} exact/>
+            <Route path="/about" component={AboutPage}/>
+            <Route path="/contact" component={ContactPage}/>
+            <Route component={ErrorPage} />
+          </Switch>
         </div>
-        <div className="container">
-          <Test noArticles="50" />
-        </div>
+        <Footer />
       </div>
     );
   }

@@ -14,6 +14,7 @@ class TypingInput extends React.Component {
 
   onFormSubmit = (event) => {
     event.preventDefault();
+    this.props.onSubmit();
   };
 
   onTyped = async (e) => {
@@ -35,21 +36,20 @@ class TypingInput extends React.Component {
   
   render() {
     return (
-      <div className="input">
-        <form autoComplete="off" onSubmit={this.onFormSubmit}>
-          <div>
-            <input
-              ref="inputBar"
-              id="inputBar"
-              autoFocus
-              className="typed"
-              type="text"
-              value={this.state.typed}
-              onChange={this.onTyped}
-            />
-          </div>
-        </form>
-      </div>
+      <form autoComplete="off" onSubmit={this.onFormSubmit}>
+        <div>
+          <input
+            spellCheck="false"
+            ref="inputBar"
+            id="inputBar"
+            autoFocus
+            className="input"
+            type="text"
+            value={this.state.typed}
+            onChange={this.onTyped}
+          />
+        </div>
+      </form>
     );
   }
 
