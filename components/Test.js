@@ -16,7 +16,7 @@ class Test extends React.Component {
     quoteText: "Please Wait...",
     input: "",
     noWords: null,
-    wpm: 0,
+    wpm: "start Typing",
     correctedAccuracy: 100,
     actualAccuracy: 100,
     penalty: 0,
@@ -191,7 +191,29 @@ class Test extends React.Component {
         }
       }
     }
+    //current character selector -------
+    for (let i = 0; i < this.breaks.length; i++) {
+      if (input.length  === this.breaks[i]) {
+        result.push(<br key={`BR${i}`} />);
+      }
+    }
+    if(quote[input.length] !== " ")
+    {
+    result.push(
+      <span key={`Iend`} className="resultText nextChar">
+        {quote[input.length]}
+      </span>
+    );
+    } else {
+    result.push(
+      <span key={`Iend`} className="resultText nextChar">
+        &#160;
+      </span>
+    );
+    }
+    //----------
 
+    //actual accuracy ------
     if(this.lastLength < input.length) {
         if(input[input.length - 1] === quote[input.length - 1]){
           this.actualCorrect++;
@@ -200,11 +222,13 @@ class Test extends React.Component {
           this.actualWrong++;
         }
     }
-  
+    //----------
+
     this.setState({ input: result });
     if (input.length !== 0) {
+      if( typeof this.state.wpm === "string") this.setState({wpm: 0});
       let noWords = Math.ceil(result.length / 5);
-      if (noWords !== this.state.noWords && noWords > 2) {
+      if ( (noWords !== this.state.noWords && noWords > 2) || input.length === quote.length ) {
         this.setState({ noWords });
         let elapsed = (updateDate.getTime() - this.timer) / 1000;
 
@@ -214,14 +238,16 @@ class Test extends React.Component {
         wpm = Math.ceil( (wpm - penalty ) * 100) / 100;
         if(wpm < 0) wpm = 0;
         penalty = Math.ceil(penalty);
+        if(penalty > 200) penalty = ";)";
+        
         this.setState({ penalty, wpm });
       }
-      let correctedAccuracy = Math.ceil(100 * (noCorrect / (noCorrect + noIncorrect)) * 100) / 100;
-      let actualAccuracy = Math.ceil( 100* (this.actualCorrect / (this.actualWrong + this.actualCorrect) ) * 100 ) / 100;
+      let correctedAccuracy = Math.ceil(100 * (noCorrect / (noCorrect + noIncorrect)) );
+      let actualAccuracy = Math.ceil( 100* (this.actualCorrect / (this.actualWrong + this.actualCorrect) ) );
 
       this.setState({ correctedAccuracy, actualAccuracy });
     } else {
-      this.setState({ actualAccuracy: 100, correctedAccuracy: 100, wpm: 0, penalty: 0 }); //0 characters typed
+      this.setState({ actualAccuracy: 100, correctedAccuracy: 100, wpm: "Start Typing", penalty: 0 }); //0 characters typed
     }
     
     if(input.length === quote.length ) {
@@ -317,7 +343,7 @@ class Test extends React.Component {
           </div>
         </div>
         <div className="chartContainer">
-        <h2>Words Per Minute - last ten games</h2>
+        <h2>Words Per Minute - last ten tests</h2>
           <ResponsiveContainer>
             <LineChart className = "chart" margin={{ top: 0, right: 0, left: -25, bottom: 0}} data={this.chartData}>
               <Line type="monotone" dataKey="WPM" stroke="#66999b" strokeWidth={2} />

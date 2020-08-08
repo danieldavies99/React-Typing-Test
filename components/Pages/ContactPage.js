@@ -6,9 +6,9 @@ class ContactPage extends React.Component {
 
   render(props) {
     return (
-      <div className="error">
-          <h1>Contact me</h1>
-          <p>You can contact me at something@something.com</p>
+      <div className="about">
+        <h1>Contact me</h1>
+        <p>For any enquiries, suggestions or feedback don't hesitate to send me an email at <strong>dan@dfordevelop.com</strong></p>
       </div>
     );
   }

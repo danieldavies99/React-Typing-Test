@@ -15,7 +15,7 @@
   --font-serif: "Courier New", Courier, monospace;
   --font-sans-serif: 'Roboto',sans-serif;
 }
-.outputText {
+.outputText{
   font-weight: 700;
   white-space: nowrap;
   width: inherit;
@@ -76,6 +76,11 @@ span {
 .incorrect {
   color: red;
 }
+.nextChar {
+  color: var(--secondary-color);
+  background-color: lightgrey;
+}
+
 a {
   text-decoration: none;
 }
@@ -164,43 +169,50 @@ a {
   font-family: var(--font-serif);
   background-color: var(--secondary-color);
 }
-.header h1 {
+.header h1{
   font-size: 35px;
   display: inline-block;
   font-weight: 500;
-  padding: 15px 15px;
-  color: white;
+  padding: 14px 10px;
+  color: #ffffff;
   cursor: pointer;
 }
-.header h2 {
+.header h2{
   font-size: 25px;
   font-weight: 300;
   display: inline-block;
-  padding: 15px 15px;
-  color: white;
+  padding: 10px 24px;
+  color: #ffffff;
   cursor: pointer;
   transition: all 0.2s;
 }
 .header h2:hover {
-  padding: 15px 20px;
+  padding: 10px 27px;
 }
 
 .footerGrid {
+  position: static;
+  min-width: 100%;
   font-family: var(--font-serif);
+  justify-content: center;
   align-content: center;
   padding: 30px 30px;
   display: grid;
+  grid-gap:10px;
   grid-template-columns: 1fr 1fr 1fr;
   border-top: var(--border-color) solid 1px;
-  min-width: 100vw;
   max-width: 100%;
   background-color: var(--secondary-color);
 }
 .footerHeader {
   font-Size: 35px;
 }
-.footerContent {
+.footerContent, .footerText {
   color: white;
+}
+.footerText:hover {
+  color: lightgrey;
+  cursor: pointer;
 }
 .footerContent div {
   font-weight: 200;
